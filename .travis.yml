@@ -26,9 +26,9 @@ env:
         CXXFLAGS="" 
     matrix:
         # Primal and adjoint builds and tests
-        - MAKE_COMMAND="make primal reverse"
+        - MAKE_COMMAND="make primal"
           TEST_PRIMAL=$TRAVIS_BUILD_DIR/tests/regression/regression.py
-          TEST_ADJOINT=$TRAVIS_BUILD_DIR/tests/regressionAD/regressionAD.py
+        #TEST_ADJOINT=$TRAVIS_BUILD_DIR/tests/regressionAD/regressionAD.py
 
 
 before_install:
@@ -70,4 +70,4 @@ install:
 script: 
     # Run the tests via the Python scripts
     - python $TEST_PRIMAL
-    - python $TEST_ADJOINT    
+    #- python $TEST_ADJOINT    
