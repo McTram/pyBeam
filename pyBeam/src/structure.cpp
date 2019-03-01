@@ -678,8 +678,8 @@ void CStructure::UpdateInternalForces()
  */
 void CStructure::EchoCoord()
 {
-  cout << "========================= Coordinates =========================" << std::endl;
-  cout << X << std::endl;
+  std::cout << "========================= Coordinates =========================" << std::endl;
+  std::cout << X << std::endl;
 #ifdef DEBG
 	//std::ofstream Xcoord ("./output/echo_Xcoord.out", std::ios_base::out | std::ios_base::app);
 	Xcoord <<  X << std::endl;
@@ -697,8 +697,8 @@ void CStructure::EchoCoord()
 
 void CStructure::EchoDisp()
 {
-  cout << "========================= Displacement =========================" << std::endl;
-  cout << dU << std::endl;
+  std::cout << "========================= Displacement =========================" << std::endl;
+  std::cout << dU << std::endl;
 #ifdef DEBG
 	//std::ofstream udisp ("./output/echo_udisp.out", std::ios_base::out | std::ios_base::app);
 	udisp <<  dU << std::endl;
@@ -711,8 +711,8 @@ void CStructure::EchoDisp()
 
 void CStructure::EchoRes()
 {
-  cout << "========================= Residual =========================" << std::endl;
-  cout << Residual << std::endl;
+  std::cout << "========================= Residual =========================" << std::endl;
+  std::cout << Residual << std::endl;
 #ifdef DEBG
 	//std::ofstream echo_Residual ("./output/echo_Residual.out", std::ios_base::out | std::ios_base::app);            //  Residual in GLOBAL REF
 	echo_Residual <<  Residual << std::endl;
@@ -727,8 +727,8 @@ void CStructure::EchoRes()
 void CStructure::EchoFext()
 {
 
-  cout << "========================= External forces =========================" << std::endl;
-  cout << Fext << std::endl;
+  std::cout << "========================= External forces =========================" << std::endl;
+  std::cout << Fext << std::endl;
 #ifdef DEBG
 	//std::ofstream echo_Fext ("./output/echo_Fext.out", std::ios_base::out | std::ios_base::app);            //  Residual in GLOBAL REF
 	echo_Fext <<  Fext << std::endl;
