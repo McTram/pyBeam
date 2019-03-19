@@ -1,1 +1,7 @@
 
+[submodule "pyBeam/externals/Eigen"]
+	path = pyBeam/externals/Eigen
+	url = https://github.com/eigenteam/eigen-git-mirror.git
+[submodule "pyBeam/externals/CoDiPack"]
+	path = pyBeam/externals/CoDiPack
+	url = https://github.com/SciCompKL/CoDiPack.git
