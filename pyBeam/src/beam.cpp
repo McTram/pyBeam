@@ -220,6 +220,8 @@ void CBeamSolver::Solve(int FSIIter = 0){
             // Now, X, R, l are updated
             structure->UpdateInternalForces();
             
+            structure-> UpdateInternalForces_FP();
+            
             /*--------------------------------------------------
              *   Update Penalty Forces
              *----------------------------------------------------*/

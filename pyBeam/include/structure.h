@@ -171,6 +171,7 @@ public:
     //===================================================
         
     void UpdateInternalForces();
+    void UpdateInternalForces_FP();    
     
     addouble GetDisplacement(int pos, int index) {
         addouble disp;
