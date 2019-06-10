@@ -1083,7 +1083,7 @@ void CStructure::UpdateInternalForces()
 
         du_el.segment(4 -1,3)  = pseudo_A;
         du_el.segment(10 -1,3) = pseudo_B;
-        
+                
         // Incrementing the cumulative elastic displacements
         // phi is the deformational state vector
         // eps = {    DL,    DTheta ,  Theta_y_el_B ,  Theta_z_el_B , Theta_y_el_A,  Theta_z_el_A)
@@ -1114,8 +1114,7 @@ void CStructure::UpdateInternalForces()
 
     }
     
-    std::cout << " \nfint elem update\n " << element[nfem-1]->fint << std::endl;
-
+        std::cout << "du_el =\n" << du_el << std::endl  ;
 }
 
 
@@ -1222,22 +1221,21 @@ void CStructure::UpdateInternalForces_FP()
         u_el.segment(4 -1,3)  = pseudo_A;
         u_el.segment(10 -1,3) = pseudo_B;
         
+        
         // Incrementing the cumulative elastic displacements
         // phi is the deformational state vector
         // eps = {    DL,    DTheta ,  Theta_y_el_B ,  Theta_z_el_B , Theta_y_el_A,  Theta_z_el_A)
-        
-        eps(1-1) = u_el( 7-1);
-        eps(2-1) = u_el( 10-1) - u_el( 4-1);
-        eps(3-1) = u_el( 11-1);
-        eps(4-1) = u_el( 12-1);
-        eps(5-1) = u_el( 5-1);
-        eps(6-1) = u_el( 6-1);
-                        
-        
+        element[id_fe-1]->eps(1-1) += u_el( 7-1);
+        element[id_fe-1]->eps(2-1) += u_el( 10-1) - u_el( 4-1);
+        element[id_fe-1]->eps(3-1) += u_el( 11-1);
+        element[id_fe-1]->eps(4-1) += u_el( 12-1);
+        element[id_fe-1]->eps(5-1) += u_el( 5-1);
+        element[id_fe-1]->eps(6-1) += u_el( 6-1);
+                  
         // Constitutive relation between deformational and tensional state
         // phi = tensional state = { N ,  Mt , MBy , MBz , MAy , M_Az }
         
-        phi =  element[id_fe-1]->Kprim*eps;
+        element[id_fe-1]->phi =  element[id_fe-1]->Kprim*element[id_fe-1]->eps;
         
         Na = MatrixXdDiff::Zero(6,6);
         Nb = MatrixXdDiff::Zero(6,6);
@@ -1245,16 +1243,14 @@ void CStructure::UpdateInternalForces_FP()
         element[id_fe-1]->EvalNaNb(Na , Nb);
         
         // Updating cumulative internal forces
-        fint.segment(1-1,6) =  Na.transpose()*phi;
-        fint.segment(7-1,6) =  Nb.transpose()*phi;
+        element[id_fe-1]->fint.segment(1-1,6) =  Na.transpose()*element[id_fe-1]->phi;
+        element[id_fe-1]->fint.segment(7-1,6) =  Nb.transpose()*element[id_fe-1]->phi;
 
         // Contribution to the NODAL Internal Forces ARRAY
-//        Fint.segment((nodeA_id-1)*6+1 -1,6) +=  element[id_fe-1]->R * element[id_fe-1]->fint.segment(1-1,6);
-//        Fint.segment((nodeB_id-1)*6+1 -1,6) +=  element[id_fe-1]->R * element[id_fe-1]->fint.segment(7-1,6);
-
+        Fint.segment((nodeA_id-1)*6+1 -1,6) +=  element[id_fe-1]->R * element[id_fe-1]->fint.segment(1-1,6);
+        Fint.segment((nodeB_id-1)*6+1 -1,6) +=  element[id_fe-1]->R * element[id_fe-1]->fint.segment(7-1,6);
     }
     
-    std::cout << " \nfint FP elem\n " << fint << std::endl; 
+        std::cout << "u_el =\n" << u_el << std::endl; 
     
-
 }

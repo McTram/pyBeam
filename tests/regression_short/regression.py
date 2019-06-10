@@ -41,4 +41,4 @@ beam.PrintDisplacements(20)
 
 #success = beam.TestNodePosition(20,1e-8,24.0199395394,16.2954533731,0.389860802844)
 
-exit(success)
+#exit(success)
